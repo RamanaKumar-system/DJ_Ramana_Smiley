@@ -9,7 +9,7 @@
     <style>
         /* --- Basic Setup & Mobile First Design --- */
         :root {
-            --primary-color: #1DB954; /* Spotify Green */
+            --primary-color: #1DB954;
             --dark-color: #121212;
             --light-dark-color: #282828;
             --text-color: #ffffff;
@@ -28,34 +28,42 @@
             color: var(--text-color);
         }
 
-        /* --- Header & Navigation --- */
+        /* --- MODIFIED: Header & Navigation --- */
         header {
             background-color: var(--light-dark-color);
-            padding: 1rem;
-            display: flex;
-            justify-content: space-between;
+            padding: 0.5rem 1rem; /* Adjusted padding */
+            display: grid; /* Use grid for better alignment */
+            grid-template-columns: auto 1fr auto; /* Left, Center, Right columns */
             align-items: center;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
+            gap: 1rem;
         }
 
+        /* MODIFIED: Logo is now in the center */
         .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
+            text-align: center;
+        }
+        .logo img {
+            max-height: 45px; /* Control your logo's height */
+            width: auto;
         }
 
+        /* MODIFIED: Hamburger is on the left */
         .hamburger-menu {
             display: block;
             font-size: 1.8rem;
             cursor: pointer;
+            grid-column: 1; /* Position in the first column */
         }
-
+        
+        /* The nav menu will automatically be in the third column */
         nav {
-            display: none; /* Hidden on mobile by default */
+            display: none;
             position: fixed;
-            top: 60px; /* Height of header */
+            top: 60px; /* Adjusted based on new header height */
             left: 0;
             width: 100%;
             height: 100vh;
@@ -63,7 +71,7 @@
         }
 
         nav.show {
-            display: block; /* Shown when hamburger is clicked */
+            display: block;
         }
 
         nav ul {
@@ -87,25 +95,35 @@
 
         /* --- Main Content Area --- */
         main {
-            padding: 80px 1rem 1rem 1rem; /* Start content below the fixed header */
+            padding: 80px 1rem 1rem 1rem;
         }
 
         .content-section {
-            display: none; /* Hide all sections by default */
+            display: none;
         }
         
         #home .content-section {
-            display: block; /* Sections inside home are always visible */
+            display: block;
             margin-bottom: 3rem;
         }
 
         .content-section.active {
-            display: block; /* Show only the active section */
+            display: block;
         }
 
         h1, h2 {
             color: var(--primary-color);
             margin-bottom: 1rem;
+        }
+        
+        /* NEW: Centering styles for specific sections */
+        #library h2, #home-library h2, #about, #contact, #home-about, #home-contact {
+            text-align: center;
+        }
+
+        /* Keep track items left-aligned since they are flex containers */
+        .track-item {
+            text-align: left;
         }
 
         /* --- Library Section --- */
@@ -116,17 +134,8 @@
             margin-bottom: 1.5rem;
         }
 
-        .search-input {
+        .search-input, .sort-select {
             flex-grow: 1;
-            padding: 0.7rem;
-            border-radius: 25px;
-            border: 1px solid var(--text-grey);
-            background-color: var(--light-dark-color);
-            color: var(--text-color);
-            font-size: 1rem;
-        }
-
-        .sort-select {
             padding: 0.7rem;
             border-radius: 25px;
             border: 1px solid var(--text-grey);
@@ -175,12 +184,6 @@
         }
 
         /* --- About & Contact Sections --- */
-        #about p, #contact p {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            color: var(--text-grey);
-        }
-
         .social-icons {
             margin-top: 1.5rem;
         }
@@ -188,12 +191,19 @@
         .social-icons a {
             color: var(--text-grey);
             font-size: 2.5rem;
-            margin-right: 1.5rem;
+            margin: 0 0.75rem; /* Adjusted margin */
             transition: color 0.3s;
         }
 
         .social-icons a:hover {
             color: var(--primary-color);
+        }
+        
+        /* NEW: Copyright text style */
+        .copyright {
+            margin-top: 2.5rem;
+            color: var(--text-grey);
+            font-size: 0.9rem;
         }
 
         /* --- Desktop Version --- */
@@ -202,12 +212,22 @@
                 display: none;
             }
 
+            header {
+                grid-template-columns: 1fr auto; /* On desktop, logo left, nav right */
+                padding: 0.5rem 2rem;
+            }
+            .logo {
+                text-align: left; /* Align logo to the left */
+                grid-column: 1;
+            }
+
             nav {
                 display: block;
                 position: static;
                 height: auto;
                 width: auto;
                 background-color: transparent;
+                grid-column: 2; /* Nav moves to the second column */
             }
 
             nav ul {
@@ -221,7 +241,7 @@
             }
             
             main {
-                padding: 80px 2rem 2rem 2rem;
+                padding: 90px 2rem 2rem 2rem;
             }
         }
     </style>
@@ -229,8 +249,10 @@
 <body>
 
     <header>
-        <div class="logo">DJ Ramana Smiley</div>
         <div class="hamburger-menu" id="hamburger-menu">&#9776;</div>
+        <div class="logo">
+            <img src="https://postimg.cc/MXm7gXbS" alt="DJ Ramana Smiley Logo">
+        </div>
         <nav id="nav-menu">
             <ul>
                 <li><a href="#home" class="nav-link">Home</a></li>
@@ -254,8 +276,7 @@
                         <option value="previous">Sort by Previously Uploaded</option>
                     </select>
                 </div>
-                <ul id="track-list-home" class="track-list">
-                    </ul>
+                <ul id="track-list-home" class="track-list"></ul>
             </div>
 
             <div class="content-section" id="home-about">
@@ -266,41 +287,26 @@
             <div class="content-section" id="home-contact">
                 <h2>Contact Us</h2>
                 <p>Follow me on social media for updates:</p>
-                <div class="social-icons">
-                     </div>
+                <div class="contact-footer">
+                    </div>
             </div>
         </section>
 
         <section id="library" class="content-section">
             <h2>Track Library</h2>
             <div class="library-controls">
-                <input type="text" id="search-input-library" class="search-input" placeholder="Search for a song...">
+                <input type="text" id="search-input-library" class="search-input" placeholder="Search...">
                 <select id="sort-select-library" class="sort-select">
                     <option value="latest">Sort by Latest</option>
                     <option value="previous">Sort by Previously Uploaded</option>
                 </select>
             </div>
             <ul id="track-list-library" class="track-list">
-                <li class="track-item" data-timestamp="5">
-                    <span class="track-title">ramana DJ Song Title</span>
-                    <a href="https://drive.google.com/file/d/1PtGZedTutkOYvRX2g3LFYpX-XuomiPOT/view?usp=sharing" class="download-btn">Download</a>
-                </li>
-                <li class="track-item" data-timestamp="4">
-                    <span class="track-title">Newest DJ Song Title</span>
-                    <a href="#" class="download-btn">Download</a>
-                </li>
-                <li class="track-item" data-timestamp="3">
-                    <span class="track-title">Pulsar Bike DJ Remix</span>
-                    <a href="#" class="download-btn">Download</a>
-                </li>
-                <li class="track-item" data-timestamp="2">
-                    <span class="track-title">Mangli Kanti Papa Folk DJ</span>
-                    <a href="#" class="download-btn">Download</a>
-                </li>
-                <li class="track-item" data-timestamp="1">
-                    <span class="track-title">Tillu Anna DJ Pedithe</span>
-                    <a href="#" class="download-btn">Download</a>
-                </li>
+                <li class="track-item" data-timestamp="5"><span class="track-title">ramana DJ Song Title</span><a href="..." class="download-btn">Download</a></li>
+                <li class="track-item" data-timestamp="4"><span class="track-title">Newest DJ Song Title</span><a href="#" class="download-btn">Download</a></li>
+                <li class="track-item" data-timestamp="3"><span class="track-title">Pulsar Bike DJ Remix</span><a href="#" class="download-btn">Download</a></li>
+                <li class="track-item" data-timestamp="2"><span class="track-title">Mangli Kanti Papa Folk DJ</span><a href="#" class="download-btn">Download</a></li>
+                <li class="track-item" data-timestamp="1"><span class="track-title">Tillu Anna DJ Pedithe</span><a href="#" class="download-btn">Download</a></li>
             </ul>
         </section>
 
@@ -312,11 +318,14 @@
         <section id="contact" class="content-section">
             <h2>Contact Us</h2>
             <p>Follow me on social media for updates:</p>
-            <div class="social-icons">
-                <a href="https://www.facebook.com/share/1LwrWJzf2E/" target="_blank"><i class="fab fa-facebook"></i></a>
-                <a href="https://www.instagram.com/ramana_bingi_?igsh=cThiMGUxZDR5cXhn" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="https://youtube.com/@dj_ramana_smiley_djrs?feature=shared" target="_blank"><i class="fab fa-youtube"></i></a>
-                <a href="mailto:djramanawarangal@gmail.com"><i class="fas fa-envelope"></i></a>
+            <div class="contact-footer">
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/share/1LwrWJzf2E/" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/ramana_bingi_?igsh=cThiMGUxZDR5cXhn" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://youtube.com/@dj_ramana_smiley_djrs?feature=shared" target="_blank"><i class="fab fa-youtube"></i></a>
+                    <a href="mailto:djramanawrangal@bmail.com"><i class="fas fa-envelope"></i></a>
+                </div>
+                <p class="copyright">copyright rights by DJ Ramana Smiley</p>
             </div>
         </section>
     </main>
@@ -333,30 +342,24 @@
             const homeTrackList = document.getElementById('track-list-home');
             homeTrackList.innerHTML = libraryTrackList.innerHTML;
 
-            // --- FIX: Clone social media links into the Home page ---
-            const contactSocialIcons = document.querySelector('#contact .social-icons');
-            const homeSocialIcons = document.querySelector('#home-contact .social-icons');
-            if (contactSocialIcons && homeSocialIcons) {
-                homeSocialIcons.innerHTML = contactSocialIcons.innerHTML;
+            // MODIFIED: Clone the entire contact footer (icons + copyright)
+            const contactFooter = document.querySelector('#contact .contact-footer');
+            const homeFooter = document.querySelector('#home-contact .contact-footer');
+            if (contactFooter && homeFooter) {
+                homeFooter.innerHTML = contactFooter.innerHTML;
             }
 
-            // --- Elements for Home Page ---
             const searchInputHome = document.getElementById('search-input-home');
             const sortSelectHome = document.getElementById('sort-select-home');
             const trackItemsHome = Array.from(homeTrackList.getElementsByClassName('track-item'));
-
-            // --- Elements for Library Page ---
             const searchInputLibrary = document.getElementById('search-input-library');
             const sortSelectLibrary = document.getElementById('sort-select-library');
             const trackItemsLibrary = Array.from(libraryTrackList.getElementsByClassName('track-item'));
 
-
-            // --- Hamburger Menu Toggle ---
             hamburger.addEventListener('click', () => {
                 navMenu.classList.toggle('show');
             });
 
-            // --- Navigation Logic ---
             navLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -371,7 +374,6 @@
                 });
             });
 
-            // --- Reusable Search Function ---
             function handleSearch(inputElement, items) {
                 const searchTerm = inputElement.value.toLowerCase();
                 items.forEach(item => {
@@ -380,7 +382,6 @@
                 });
             }
 
-            // --- Reusable Sort Function ---
             function sortTracks(sortElement, listElement, items) {
                 const sortBy = sortElement.value;
                 const sortedItems = items.sort((a, b) => {
@@ -391,13 +392,11 @@
                 sortedItems.forEach(item => listElement.appendChild(item));
             }
 
-            // --- Attach Event Listeners ---
             searchInputHome.addEventListener('input', () => handleSearch(searchInputHome, trackItemsHome));
             sortSelectHome.addEventListener('change', () => sortTracks(sortSelectHome, homeTrackList, trackItemsHome));
             searchInputLibrary.addEventListener('input', () => handleSearch(searchInputLibrary, trackItemsLibrary));
             sortSelectLibrary.addEventListener('change', () => sortTracks(sortSelectLibrary, libraryTrackList, trackItemsLibrary));
 
-            // --- Initial Sort on page load for both lists ---
             sortTracks(sortSelectHome, homeTrackList, trackItemsHome);
             sortTracks(sortSelectLibrary, libraryTrackList, trackItemsLibrary);
         });
