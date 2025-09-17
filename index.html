@@ -31,9 +31,9 @@
         /* --- MODIFIED: Header & Navigation --- */
         header {
             background-color: var(--light-dark-color);
-            padding: 0.5rem 1rem; /* Adjusted padding */
-            display: grid; /* Use grid for better alignment */
-            grid-template-columns: auto 1fr auto; /* Left, Center, Right columns */
+            padding: 0.5rem 1rem;
+            display: grid;
+            grid-template-columns: 1fr auto; /* Logo left, hamburger right */
             align-items: center;
             position: fixed;
             width: 100%;
@@ -42,28 +42,28 @@
             gap: 1rem;
         }
 
-        /* MODIFIED: Logo is now in the center */
+        /* MODIFIED: Logo is now on the left and bigger */
         .logo {
-            text-align: center;
+            text-align: left; /* Align logo to the left */
         }
         .logo img {
-            max-height: 45px; /* Control your logo's height */
+            max-height: 60px; /* Increased logo height */
             width: auto;
         }
 
-        /* MODIFIED: Hamburger is on the left */
+        /* MODIFIED: Hamburger is on the right */
         .hamburger-menu {
             display: block;
             font-size: 1.8rem;
             cursor: pointer;
-            grid-column: 1; /* Position in the first column */
+            grid-column: 2; /* Position in the second column */
         }
         
         /* The nav menu will automatically be in the third column */
         nav {
             display: none;
             position: fixed;
-            top: 60px; /* Adjusted based on new header height */
+            top: 76px; /* Adjusted based on new header height */
             left: 0;
             width: 100%;
             height: 100vh;
@@ -95,7 +95,7 @@
 
         /* --- Main Content Area --- */
         main {
-            padding: 80px 1rem 1rem 1rem;
+            padding: 95px 1rem 1rem 1rem; /* Adjusted top padding */
         }
 
         .content-section {
@@ -213,7 +213,7 @@
             }
 
             header {
-                grid-template-columns: 1fr auto; /* On desktop, logo left, nav right */
+                grid-template-columns: auto 1fr; /* On desktop, logo left, nav right */
                 padding: 0.5rem 2rem;
             }
             .logo {
@@ -228,6 +228,7 @@
                 width: auto;
                 background-color: transparent;
                 grid-column: 2; /* Nav moves to the second column */
+                justify-self: end; /* Align nav to the far right */
             }
 
             nav ul {
@@ -241,7 +242,7 @@
             }
             
             main {
-                padding: 90px 2rem 2rem 2rem;
+                padding: 100px 2rem 2rem 2rem; /* Adjusted top padding for desktop */
             }
         }
     </style>
@@ -249,10 +250,10 @@
 <body>
 
     <header>
-        <div class="hamburger-menu" id="hamburger-menu">&#9776;</div>
         <div class="logo">
-            <img src="https://i.postimg.cc/vZjDL7xN/file-00000000eee86230a13277050a90c4b2.png" alt="DJ Ramana Smiley Logo">
+            <img src="https://i.postimg.cc/bNNt0cRC/Pics-Art-01-02-01-09-24.png" alt="DJ Ramana Smiley Logo">
         </div>
+        <div class="hamburger-menu" id="hamburger-menu">&#9776;</div>
         <nav id="nav-menu">
             <ul>
                 <li><a href="#home" class="nav-link">Home</a></li>
@@ -265,7 +266,7 @@
 
     <main>
         <section id="home" class="content-section active">
-            <h1>Welcome!</h1>
+            <!-- REMOVED "Welcome!" h1 tag -->
             
             <div class="content-section" id="home-library">
                 <h2>Latest Tracks</h2>
@@ -403,5 +404,3 @@
     </script>
 </body>
 </html>
-
-
