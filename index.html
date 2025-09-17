@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DJ Ramana Smiley - Music</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <style>
+        /* --- Basic Setup & Mobile First Design --- */
+        :root {
+            --primary-color: #1DB954; /* Spotify Green */
+            --dark-color: #121212;
+            --light-dark-color: #282828;
+            --text-color: #ffffff;
+            --text-grey: #b3b3b3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--dark-color);
+            color: var(--text-color);
+        }
+
+        /* --- Header & Navigation --- */
+        header {
+            background-color: var(--light-dark-color);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .hamburger-menu {
+            display: block;
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+
+        nav {
+            display: none; /* Hidden on mobile by default */
+            position: fixed;
+            top: 60px; /* Height of header */
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(18, 18, 18, 0.95);
+        }
+
+        nav.show {
+            display: block; /* Shown when hamburger is clicked */
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding-top: 2rem;
+        }
+
+        nav ul li a {
+            display: block;
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 1.2rem;
+            padding: 1rem 2rem;
+            transition: background-color 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: var(--primary-color);
+            color: var(--dark-color);
+        }
+
+        /* --- Main Content Area --- */
+        main {
+            padding: 80px 1rem 1rem 1rem; /* Start content below the fixed header */
+        }
+
+        .content-section {
+            display: none; /* Hide all sections by default */
+        }
+        
+        #home .content-section {
+            display: block; /* Sections inside home are always visible */
+            margin-bottom: 3rem;
+        }
+
+        .content-section.active {
+            display: block; /* Show only the active section */
+        }
+
+        h1, h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        /* --- Library Section --- */
+        .library-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-input {
+            flex-grow: 1;
+            padding: 0.7rem;
+            border-radius: 25px;
+            border: 1px solid var(--text-grey);
+            background-color: var(--light-dark-color);
+            color: var(--text-color);
+            font-size: 1rem;
+        }
+
+        .sort-select {
+            padding: 0.7rem;
+            border-radius: 25px;
+            border: 1px solid var(--text-grey);
+            background-color: var(--light-dark-color);
+            color: var(--text-color);
+            font-size: 1rem;
+        }
+        
+        .track-list {
+            list-style-type: none;
+        }
+
+        .track-item {
+            background-color: var(--light-dark-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s;
+        }
+        
+        .track-item:hover {
+            transform: scale(1.02);
+        }
+
+        .track-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .download-btn {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: background-color 0.3s;
+        }
+
+        .download-btn:hover {
+            background-color: #1ed760;
+        }
+
+        /* --- About & Contact Sections --- */
+        #about p, #contact p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--text-grey);
+        }
+
+        .social-icons {
+            margin-top: 1.5rem;
+        }
+
+        .social-icons a {
+            color: var(--text-grey);
+            font-size: 2.5rem;
+            margin-right: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: var(--primary-color);
+        }
+
+        /* --- Desktop Version --- */
+        @media (min-width: 768px) {
+            .hamburger-menu {
+                display: none;
+            }
+
+            nav {
+                display: block;
+                position: static;
+                height: auto;
+                width: auto;
+                background-color: transparent;
+            }
+
+            nav ul {
+                display: flex;
+                padding-top: 0;
+            }
+
+            nav ul li a {
+                padding: 0.5rem 1rem;
+                border-radius: 20px;
+            }
+            
+            main {
+                padding: 80px 2rem 2rem 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">DJ Ramana Smiley</div>
+        <div class="hamburger-menu" id="hamburger-menu">&#9776;</div>
+        <nav id="nav-menu">
+            <ul>
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#library" class="nav-link">Library</a></li>
+                <li><a href="#about" class="nav-link">About Us</a></li>
+                <li><a href="#contact" class="nav-link">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="content-section active">
+            <h1>Welcome!</h1>
+            
+            <div class="content-section" id="home-library">
+                <h2>Latest Tracks</h2>
+                <div class="library-controls">
+                    <input type="text" id="search-input-home" class="search-input" placeholder="Search for a song...">
+                    <select id="sort-select-home" class="sort-select">
+                        <option value="latest">Sort by Latest</option>
+                        <option value="previous">Sort by Previously Uploaded</option>
+                    </select>
+                </div>
+                <ul id="track-list-home" class="track-list">
+                    </ul>
+            </div>
+
+            <div class="content-section" id="home-about">
+                 <h2>About Us</h2>
+                 <p>Latest Telugu DJ Remix Songs Remix By DJ Ramana Smiley.</p>
+            </div>
+            
+            <div class="content-section" id="home-contact">
+                <h2>Contact Us</h2>
+                <p>Follow me on social media for updates:</p>
+                <div class="social-icons">
+                     </div>
+            </div>
+        </section>
+
+        <section id="library" class="content-section">
+            <h2>Track Library</h2>
+            <div class="library-controls">
+                <input type="text" id="search-input-library" class="search-input" placeholder="Search for a song...">
+                <select id="sort-select-library" class="sort-select">
+                    <option value="latest">Sort by Latest</option>
+                    <option value="previous">Sort by Previously Uploaded</option>
+                </select>
+            </div>
+            <ul id="track-list-library" class="track-list">
+                <li class="track-item" data-timestamp="5">
+                    <span class="track-title">ramana DJ Song Title</span>
+                    <a href="https://drive.google.com/file/d/1PtGZedTutkOYvRX2g3LFYpX-XuomiPOT/view?usp=sharing" class="download-btn">Download</a>
+                </li>
+                <li class="track-item" data-timestamp="4">
+                    <span class="track-title">Newest DJ Song Title</span>
+                    <a href="#" class="download-btn">Download</a>
+                </li>
+                <li class="track-item" data-timestamp="3">
+                    <span class="track-title">Pulsar Bike DJ Remix</span>
+                    <a href="#" class="download-btn">Download</a>
+                </li>
+                <li class="track-item" data-timestamp="2">
+                    <span class="track-title">Mangli Kanti Papa Folk DJ</span>
+                    <a href="#" class="download-btn">Download</a>
+                </li>
+                <li class="track-item" data-timestamp="1">
+                    <span class="track-title">Tillu Anna DJ Pedithe</span>
+                    <a href="#" class="download-btn">Download</a>
+                </li>
+            </ul>
+        </section>
+
+        <section id="about" class="content-section">
+            <h2>About Us</h2>
+            <p>Latest Telugu DJ Remix Songs Remix By DJ Ramana Smiley.</p>
+        </section>
+        
+        <section id="contact" class="content-section">
+            <h2>Contact Us</h2>
+            <p>Follow me on social media for updates:</p>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/share/1LwrWJzf2E/" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://www.instagram.com/ramana_bingi_?igsh=cThiMGUxZDR5cXhn" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://youtube.com/@dj_ramana_smiley_djrs?feature=shared" target="_blank"><i class="fab fa-youtube"></i></a>
+                <a href="mailto:djramanawarangal@gmail.com"><i class="fas fa-envelope"></i></a>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const hamburger = document.getElementById('hamburger-menu');
+            const navMenu = document.getElementById('nav-menu');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const contentSections = document.querySelectorAll('main > .content-section');
+
+            // --- Clone content into the Home page ---
+            const libraryTrackList = document.getElementById('track-list-library');
+            const homeTrackList = document.getElementById('track-list-home');
+            homeTrackList.innerHTML = libraryTrackList.innerHTML;
+
+            // --- FIX: Clone social media links into the Home page ---
+            const contactSocialIcons = document.querySelector('#contact .social-icons');
+            const homeSocialIcons = document.querySelector('#home-contact .social-icons');
+            if (contactSocialIcons && homeSocialIcons) {
+                homeSocialIcons.innerHTML = contactSocialIcons.innerHTML;
+            }
+
+            // --- Elements for Home Page ---
+            const searchInputHome = document.getElementById('search-input-home');
+            const sortSelectHome = document.getElementById('sort-select-home');
+            const trackItemsHome = Array.from(homeTrackList.getElementsByClassName('track-item'));
+
+            // --- Elements for Library Page ---
+            const searchInputLibrary = document.getElementById('search-input-library');
+            const sortSelectLibrary = document.getElementById('sort-select-library');
+            const trackItemsLibrary = Array.from(libraryTrackList.getElementsByClassName('track-item'));
+
+
+            // --- Hamburger Menu Toggle ---
+            hamburger.addEventListener('click', () => {
+                navMenu.classList.toggle('show');
+            });
+
+            // --- Navigation Logic ---
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href').substring(1);
+                    contentSections.forEach(section => {
+                        section.classList.remove('active');
+                    });
+                    document.getElementById(targetId).classList.add('active');
+                    if (navMenu.classList.contains('show')) {
+                        navMenu.classList.remove('show');
+                    }
+                });
+            });
+
+            // --- Reusable Search Function ---
+            function handleSearch(inputElement, items) {
+                const searchTerm = inputElement.value.toLowerCase();
+                items.forEach(item => {
+                    const title = item.querySelector('.track-title').textContent.toLowerCase();
+                    item.style.display = title.includes(searchTerm) ? 'flex' : 'none';
+                });
+            }
+
+            // --- Reusable Sort Function ---
+            function sortTracks(sortElement, listElement, items) {
+                const sortBy = sortElement.value;
+                const sortedItems = items.sort((a, b) => {
+                    const timeA = parseInt(a.dataset.timestamp);
+                    const timeB = parseInt(b.dataset.timestamp);
+                    return sortBy === 'latest' ? timeB - timeA : timeA - timeB;
+                });
+                sortedItems.forEach(item => listElement.appendChild(item));
+            }
+
+            // --- Attach Event Listeners ---
+            searchInputHome.addEventListener('input', () => handleSearch(searchInputHome, trackItemsHome));
+            sortSelectHome.addEventListener('change', () => sortTracks(sortSelectHome, homeTrackList, trackItemsHome));
+            searchInputLibrary.addEventListener('input', () => handleSearch(searchInputLibrary, trackItemsLibrary));
+            sortSelectLibrary.addEventListener('change', () => sortTracks(sortSelectLibrary, libraryTrackList, trackItemsLibrary));
+
+            // --- Initial Sort on page load for both lists ---
+            sortTracks(sortSelectHome, homeTrackList, trackItemsHome);
+            sortTracks(sortSelectLibrary, libraryTrackList, trackItemsLibrary);
+        });
+    </script>
+</body>
+</html>
