@@ -9,7 +9,8 @@
     <style>
         /* --- Basic Setup & Mobile First Design --- */
         :root {
-            --primary-color: #1DB954;
+            /* MODIFIED: Changed primary color for all headings */
+            --primary-color: #ffb300; 
             --dark-color: #121212;
             --light-dark-color: #282828;
             --text-color: #ffffff;
@@ -33,7 +34,6 @@
             background-color: var(--light-dark-color);
             padding: 0.5rem 1rem;
             display: grid;
-            /* MODIFIED: Set fixed side columns to ensure the center is perfect */
             grid-template-columns: 50px 1fr 50px; 
             align-items: center;
             position: fixed;
@@ -43,7 +43,6 @@
             gap: 1rem;
         }
 
-        /* MODIFIED: Logo is in the center */
         .logo {
             grid-column: 2;
             text-align: center; 
@@ -53,7 +52,6 @@
             width: auto;
         }
 
-        /* MODIFIED: Hamburger is on the left */
         .hamburger-menu {
             display: block;
             font-size: 1.8rem;
@@ -70,7 +68,6 @@
             width: 100%;
             height: 100vh;
             background-color: rgba(18, 18, 18, 0.95);
-            /* The nav menu is not part of the grid in mobile view */
         }
 
         nav.show {
@@ -145,7 +142,6 @@
             font-size: 1rem;
         }
 
-        /* MODIFIED: Custom styles for the sort dropdown arrow */
         .sort-select {
             -webkit-appearance: none;
             -moz-appearance: none;
@@ -183,7 +179,7 @@
 
         .download-btn {
             background-color: var(--primary-color);
-            color: var(--text-color);
+            color: var(--dark-color); /* Changed for better contrast */
             text-decoration: none;
             padding: 0.6rem 1.2rem;
             border-radius: 25px;
@@ -193,7 +189,7 @@
         }
 
         .download-btn:hover {
-            background-color: #1ed760;
+            background-color: #ffc400;
         }
 
         /* --- About & Contact Sections --- */
@@ -218,6 +214,25 @@
             font-size: 0.9rem;
         }
 
+        .features-list p {
+            line-height: 1.7; 
+            margin-bottom: 0.5rem;
+        }
+        
+        /* NEW: Class for adding space between paragraphs */
+        .paragraph-spacing {
+            margin-bottom: 1.2em; /* This creates the gap */
+        }
+
+        .disclaimer-title {
+            color: red;
+            font-size: 1.15em; 
+            font-weight: bold;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+
         /* --- Desktop Version --- */
         @media (min-width: 768px) {
             .hamburger-menu {
@@ -225,12 +240,11 @@
             }
 
             header {
-                /* MODIFIED: Switched to a different grid for desktop to keep logo centered */
                 grid-template-columns: 1fr auto 1fr; 
                 padding: 0.5rem 2rem;
             }
             .logo {
-                grid-column: 2; /* Ensure logo is in the center column */
+                grid-column: 2;
                 text-align: center;
             }
 
@@ -239,13 +253,13 @@
             }
 
             nav {
-                display: flex; /* Use flexbox for simple right alignment */
+                display: flex; 
                 justify-content: flex-end;
                 position: static;
                 height: auto;
                 width: auto;
                 background-color: transparent;
-                grid-column: 3; /* Nav moves to the third column */
+                grid-column: 3;
             }
 
             nav ul {
@@ -299,28 +313,25 @@
 
             <div class="content-section" id="home-about">
                  <h2>About Us</h2>
-                 <p>Welcome to DJ Ramana Smiley(DJRS) </p>
-                <p>The home for the latest Telugu DJ songs and remix tracks.</p>
-                <p>Our goal is to bring party vibes straight to your playlist with the freshest beats and trending remixes.</p>
+                 <p class="paragraph-spacing"><b>Welcome to DJ Ramana Smiley(DJRS)</b></p>
+                <p class="paragraph-spacing">The home for the latest Telugu DJ songs and remix tracks.</p>
+                <p class="paragraph-spacing">Our goal is to bring party vibes straight to your playlist with the freshest beats and trending remixes.</p>
 
-<p>We work with DJs and music lovers to create a space where you can easily find:</p>
-
-<p>Telugu DJ remixes</p>
-
-<p>The latest party mixes</p>
-
-<p>Trending regional hits</p>
-
-<p>Regular updates with fresh tracks</p>
-
+                <p class="paragraph-spacing">We work with DJs and music lovers to create a space where you can easily find:</p>
+                <div class="features-list">
+                    <p>Telugu DJ remixes</p>
+                    <p>The latest party mixes</p>
+                    <p>Trending regional hits</p>
+                    <p>Regular updates with fresh tracks</p>
+                </div>
             </div>
             
             <div class="content-section" id="home-contact">
                 <h2>Contact Us</h2>
-                <p>We’d love to hear from you. Whether you have a song request, need support, or want to collaborate, just reach out.</p>
-                    <p>Follow us on social media for updates and exclusive tracks:</p>
+                <p class="paragraph-spacing">We’d love to hear from you. Whether you have a song request, need support, or want to collaborate, just reach out.</p>
+                <p><b>Follow us on social media for updates and exclusive tracks:</b></p>
                 <div class="contact-footer">
-                    </div>
+                </div>
             </div>
         </section>
 
@@ -341,28 +352,26 @@
 
         <section id="about" class="content-section">
             <h2>About Us</h2>
-            <p>Welcome to <b>DJ Ramana Smiley</b></p>
-            <p>The home for the latest Telugu DJ songs and remix tracks.</p> 
-            <p>Our goal is to bring party vibes straight to your playlist with the freshest beats and trending remixes.</p>
+            <p class="paragraph-spacing"><b>Welcome to DJ Ramana Smiley(DJRS)</b></p>
+            <p class="paragraph-spacing">The home for the latest Telugu DJ songs and remix tracks.</p> 
+            <p class="paragraph-spacing">Our goal is to bring party vibes straight to your playlist with the freshest beats and trending remixes.</p>
 
-<p>We work with DJs and music lovers to create a space where you can easily find:</p>
+            <p class="paragraph-spacing">We work with DJs and music lovers to create a space where you can easily find:</p>
+            <div class="features-list">
+                <p><b>Telugu DJ remixes</b></p>
+                <p><b>The latest party mixes</b></p>
+                <p><b>Trending regional hits</b></p>
+                <p><b>Regular updates with fresh tracks</b></p>
+            </div>
 
-<p><b>Telugu DJ remixes</b></p>
-
-<p><b>The latest party mixes</b></p>
-
-<p><b>Trending regional hits</b></p>
-
-<p><b>Regular updates with fresh tracks</b></p>
-
-<p>Whether you’re looking for songs for an event, a party, or just your daily mood boost, we’ve got you covered.</p>
-
-<p>Stay tuned, keep dancing, and let the music flow!</p>
+            <p class="paragraph-spacing">Whether you’re looking for songs for an event, a party, or just your daily mood boost, we’ve got you covered.</p>
+            <p>Stay tuned, keep dancing, and let the music flow!</p>
         </section>
         
         <section id="contact" class="content-section">
             <h2>Contact Us</h2>
-            <p><b>Follow me on social media for updates:</b></p>
+            <p class="paragraph-spacing">We’d love to hear from you. Whether you have a song request, need support, or want to collaborate, just reach out.</p>
+            <p><b>Follow us on social media for updates and exclusive tracks:</b></p>
             <div class="contact-footer">
                 <div class="social-icons">
                     <a href="https://www.facebook.com/share/1LwrWJzf2E/" target="_blank"><i class="fab fa-facebook"></i></a>
@@ -370,13 +379,11 @@
                     <a href="https://youtube.com/@dj_ramana_smiley_djrs?feature=shared" target="_blank"><i class="fab fa-youtube"></i></a>
                     <a href="mailto:djramanawrangal@bmail.com"><i class="fas fa-envelope"></i></a>
                 </div>
-                <p class="copyright"><h><b>Disclaimer / Copyright Policy</b></h>
                 
-
-<p>All DJ mixes and remix songs featured on this website are shared for entertainment and promotional purposes only.</p>
-            <p>We do not claim ownership of the original tracks. Full credit goes to the respective artists, DJs, and music producers.</p>
-
-<p>If you are the copyright owner of any content displayed here and wish for it to be removed or credited differently, please contact us. We will respond promptly and take appropriate action.</p>
+                <h4 class="disclaimer-title">Disclaimer / Copyright Policy</h4>
+                <p>All DJ mixes and remix songs featured on this website are shared for entertainment and promotional purposes only.</p>
+                <p>We do not claim ownership of the original tracks. Full credit goes to the respective artists, DJs, and music producers.</p>
+                <p>If you are the copyright owner of any content displayed here and wish for it to be removed or credited differently, please contact us. We will respond promptly and take appropriate action.</p>
             </div>
         </section>
     </main>
@@ -388,12 +395,10 @@
             const navLinks = document.querySelectorAll('.nav-link');
             const contentSections = document.querySelectorAll('main > .content-section');
 
-            // --- Clone content into the Home page ---
             const libraryTrackList = document.getElementById('track-list-library');
             const homeTrackList = document.getElementById('track-list-home');
             homeTrackList.innerHTML = libraryTrackList.innerHTML;
 
-            // MODIFIED: Clone the entire contact footer (icons + copyright)
             const contactFooter = document.querySelector('#contact .contact-footer');
             const homeFooter = document.querySelector('#home-contact .contact-footer');
             if (contactFooter && homeFooter) {
@@ -455,9 +460,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
